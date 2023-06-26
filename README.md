@@ -74,13 +74,6 @@ python run.py
           |-- models
                 |-- classifier.pkl
                 |-- train_classifier.py
-          |-- Preparation
-                |-- categories.csv
-                |-- ETL Pipeline Preparation.ipynb
-                |-- ETL_Preparation.db
-                |-- messages.csv
-                |-- ML Pipeline Preparation.ipynb
-                |-- README
           |-- README
 
 1. app folder:  containing a templates folder and flask app "run.py" 
