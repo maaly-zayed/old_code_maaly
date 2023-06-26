@@ -107,7 +107,15 @@ def evaluate_model(model, X_test, y_test, category_names):
 
 
 def save_model(model, model_filepath):
-    pass
+    """
+    The function to save model.
+    Parameters:
+    model: trained model.
+    model_filepath: the model path
+    output: pikle version of the model
+    """
+    with open(model_filepath, 'wb') as file:
+        pickle.dump(model, file)
 
 
 def main():
