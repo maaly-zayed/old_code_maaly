@@ -31,7 +31,7 @@ def clean_data(df):
 
     # get the 36 categories
     categories = df.categories.str.split(";", expand=True)
-    # get the first row of the categories dataframe 
+    # get the first row from categories dataframe 
     first_row = categories.loc[0]
     # extract a list of new column names for categories by getting the first (n-2) characters from a string
     category_colnames = first_row.apply(lambda i: i[:-2])
@@ -51,7 +51,6 @@ def clean_data(df):
     
     return df
      
-
 def save_data(df, database_filename):
     """
     The function to save cleaned data into sql database .
@@ -64,8 +63,6 @@ def save_data(df, database_filename):
     print('Save the {} datafram to {} database: '.format(df, database_filename))
     engine = create_engine('sqlite:///{}'.format(database_filename))
     df.to_sql('DisasterResponse', engine,if_exists = 'replace', index=False)
-
-
 
 def main():
 
