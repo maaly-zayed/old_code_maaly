@@ -28,6 +28,7 @@ def load_data(database_filepath):
     engine = create_engine('sqlite:///'+database_filepath)
     #read sql tables into datafram
     df = pd.read_sql_table('DisasterResponse', engine)
+
     # get the message data
     message = df['message']
     # get the categories name
@@ -76,8 +77,8 @@ def build_model():
     ])
     #set the parameters 
     parameters = {
-        'clf__estimator__n_estimators': [10],
-    'clf__estimator__min_samples_split': [2],
+        'clf__estimator__n_estimators': [10,20],
+    'clf__estimator__min_samples_split': [2,4],
     
     }
     model = GridSearchCV(pipeline, param_grid=parameters, n_jobs=4, verbose=2, cv=3)

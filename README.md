@@ -2,18 +2,20 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
-
+- [Project Descriptions](#project-descriptions)
 - [Setting up the environment](#setting-up-the-environment)
 - [Installation](#installation)
-- [Project Motivation](#project-motivation)
-- [Project Descriptions](#project-descriptions)
 - [Files Descriptions](#files-descriptions)
 - [Instructions](#instructions)
 
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Project Descriptions
 
+This project catalogs messages that are sent during disasters. The data contains 36 predefined categories of messages. The importance of categorizing these messages is in disaster situations where the messages are forwarded to the appropriate relief agency.
+In this project we will build a pipeline for ETL and Machine Learning.
+This project also has a web application where a message is entered and its classification is obtained.
 
 ## Setting up the environment
 
@@ -38,11 +40,53 @@ The required libraries are included in the file ```bash requirements.txt```
 ```bash
 pip install -r requirements.txt
 ```
-2. To run ETL Pipeline that clean and store data
+## Instructions
+1. To run ETL Pipeline that clean and store data in the sql database
 ```bash
 python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db
 ```
-3. To run ML pipeline that trains the classifier model
+2. To run ML pipeline which train,  evaluate and save the classifier model
 ```bash
 python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
 ```
+3. To run the web app. 
+```bash
+python run.py
+```
+4. then Go to
+```bash
+ http://127.0.0.1:3001/
+```
+## Files Descriptions
+
+
+        disaster_response_pipeline
+          |-- app
+                |-- templates
+                        |-- go.html
+                        |-- master.html
+                |-- run.py
+          |-- data
+                |-- disaster_message.csv
+                |-- disaster_categories.csv
+                |-- DisasterResponse.db
+                |-- process_data.py
+          |-- models
+                |-- classifier.pkl
+                |-- train_classifier.py
+          |-- Preparation
+                |-- categories.csv
+                |-- ETL Pipeline Preparation.ipynb
+                |-- ETL_Preparation.db
+                |-- messages.csv
+                |-- ML Pipeline Preparation.ipynb
+                |-- README
+          |-- README
+
+1. app folder:  containing a templates folder and flask app "run.py" 
+2. data folder:  containing "DisasterResponse.db", "crime_categories.csv", "crime_messages.csv" and "process_data.py" which used for  cleaning and and transforming data.
+3. models folder:  containing  "classifier.pkl" and "train_classifier.py" for bulding training and evaluation  machine learning model.
+4. requirements file:  which containing the required libraries 
+4. README file: a description file for the project and the instruction to run "process_data.py"  and "train_classifier.py" 
+
+
