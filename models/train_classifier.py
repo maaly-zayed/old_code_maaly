@@ -18,10 +18,6 @@ from sklearn.multioutput import MultiOutputClassifier
 import pickle
 from sklearn.metrics import precision_score
 
-
-
-
-
 def load_data(database_filepath):
     """
     The function to load the created database.
@@ -39,12 +35,31 @@ def load_data(database_filepath):
     category_names = categories.columns 
     return message, categories, category_names
 
-
-
-
-
 def tokenize(text):
-    pass
+    """
+    The function to tokenize the text messages.
+    Parameters:
+    text: text messages.
+    """
+    # preprocessing using regex to detect url in the message
+    url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    # find all url in the message text
+    detected_urls = re.findall(url_regex, text)
+    # replace all url with "urlplaceholder"
+    for url in detected_urls:
+        text = text.replace(url, "urlplaceholder")
+
+     # convert text messages into tokens
+    tokens = word_tokenize(text)
+    lemmatizer = WordNetLemmatizer()
+    # preprocessing
+    lemm_lower_tokens = []
+    for token in tokens:
+        #lemmatize each token 
+        process_token = lemmatizer.lemmatize(token).lower().strip()
+        lemm_lower_tokens.append(process_token)
+    return lemm_lower_tokens    
+
 
 
 def build_model():
