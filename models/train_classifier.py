@@ -63,7 +63,27 @@ def tokenize(text):
 
 
 def build_model():
-    pass
+    
+    """
+    The function to create a pipeline for this model.
+    Output: the function return the model
+    """
+    #create a pipline of CountVectorizer, TfidfTransformer and MultiOutputClassifier
+    pipeline = Pipeline([
+        ('vect', CountVectorizer(tokenizer=tokenize)),
+        ('tfidf', TfidfTransformer()),
+        ('clf', MultiOutputClassifier(RandomForestClassifier()))
+    ])
+    #set the parameters 
+    parameters = {
+        'clf__estimator__n_estimators': [10],
+    'clf__estimator__min_samples_split': [2],
+    
+    }
+    model = GridSearchCV(pipeline, param_grid=parameters, n_jobs=4, verbose=2, cv=3)
+    return model
+
+
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
