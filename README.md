@@ -42,3 +42,7 @@ pip install -r requirements.txt
 ```bash
 python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db
 ```
+3. To run ML pipeline that trains the classifier model
+```bash
+python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
+```
