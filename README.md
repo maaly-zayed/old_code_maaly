@@ -75,11 +75,12 @@ python run.py
                 |-- classifier.pkl
                 |-- train_classifier.py
           |-- README
+          |-- requirements.txt
 
 1. app folder:  containing a templates folder and flask app "run.py" 
 2. data folder:  containing "DisasterResponse.db", "crime_categories.csv", "crime_messages.csv" and "process_data.py" which used for  cleaning and and transforming data.
 3. models folder:  containing  "classifier.pkl" and "train_classifier.py" for bulding training and evaluation  machine learning model.
-4. requirements file:  which containing the required libraries 
 4. README file: a description file for the project and the instruction to run "process_data.py"  and "train_classifier.py" 
+5. requirements file:  which containing the required libraries 
 
 
