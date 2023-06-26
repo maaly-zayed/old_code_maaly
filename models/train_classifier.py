@@ -76,8 +76,14 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
     #set the parameters 
+    # parameters = {
+    #     'clf__estimator__n_estimators': [10,20],
+    # 'clf__estimator__min_samples_split': [2,4],
+    
+    # }
+    #Note i change the parameters because I couldn't push the model to github
     parameters = {
-        'clf__estimator__n_estimators': [10,20],
+        'clf__estimator__n_estimators': [10],
     'clf__estimator__min_samples_split': [2,4],
     
     }
