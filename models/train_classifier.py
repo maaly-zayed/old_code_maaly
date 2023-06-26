@@ -86,8 +86,24 @@ def build_model():
 
 
 
-def evaluate_model(model, X_test, Y_test, category_names):
-    pass
+
+def evaluate_model(model, X_test, y_test, category_names):
+    """
+    The function to evaluate the model performance.
+    Parameters:
+    model: trained model.
+    X_test: test text message
+    y_test: the correct target
+    category_names: the target names
+    output: priniting the classification report
+    """
+    # get the prediction of test data
+    y_pred = model.predict(X_test)
+    for indx, category in enumerate(category_names):
+        print(f'_____________{indx, category} ______________')
+        print('________________________________________________')
+        print(classification_report(list(y_test.values[:, indx]), list(y_pred[:, indx])))
+        
 
 
 def save_model(model, model_filepath):
