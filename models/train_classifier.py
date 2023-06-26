@@ -1,8 +1,46 @@
+# import important libraries
 import sys
+from sqlalchemy import create_engine
+import nltk
+nltk.download(['punkt', 'wordnet'])
+import re
+import numpy as np
+import pandas as pd
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+from sklearn.multioutput import MultiOutputClassifier
+import pickle
+from sklearn.metrics import precision_score
+
+
+
 
 
 def load_data(database_filepath):
-    pass
+    """
+    The function to load the created database.
+    Parameters:
+    database_filepath: the file path to the database_filepath.
+    """
+    # create a connection to the sql database
+    engine = create_engine('sqlite:///'+database_filepath)
+    #read sql tables into datafram
+    df = pd.read_sql_table('DisasterResponse', engine)
+    # get the message data
+    message = df['message']
+    # get the categories name
+    categories = df.iloc[:,4:]
+    category_names = categories.columns 
+    return message, categories, category_names
+
+
+
 
 
 def tokenize(text):
