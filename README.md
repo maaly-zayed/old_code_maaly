@@ -3,6 +3,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 - [Project Descriptions](#project-descriptions)
+- [Github account](#github-account)
 - [Setting up the environment](#setting-up-the-environment)
 - [Installation](#installation)
 - [Folder Descriptions](#folder-descriptions)
@@ -16,6 +17,11 @@
 
 In this project we will build a pipeline for ETL and Machine Learning to classify disasters messages. This project also has a web application where a message is entered and its classification is obtained.
 The classification of disasters messages aims to send the message to the concerned relief agency in disaster situations.
+
+## Github account
+```bash
+      https://github.com/maaly-zayed/Disaster-Response-Pipeline.git
+```
 ## Setting up the environment
 
 It is very important to create separate environment to avoid dependecies conflict with other projects.
