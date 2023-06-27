@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine
 
+
 def load_data(messages_filepath, categories_filepath):
     """
     The function to load data .
@@ -11,60 +12,69 @@ def load_data(messages_filepath, categories_filepath):
     messages_path: the file path to the messages CSV dataset.
     categories_path: the file path to the categories CSV dataset.
     """
-  # load messages and categories csv files
+    # Load messages and categories csv files
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
-  # merge the two datasets
+    # Merge the two datasets
     df = messages.merge(categories, on='id', how='inner')
+
     return df
 
 
 def clean_data(df):
     """
     Function to clean data included in the DataFrame and transform categories part
+
     Parameters:
     model: trained model.
     df (DataFrame): Merged DataFrame
+
     OUTPUT
-        (DataFrame) df: Cleaned DataFrame
+    df (DataFrame): Cleaned DataFrame
     """
 
-    # craete a datafrm of 36 columns by Splitting the values in the categories column on the ";" character. 
+    # Create a datafrm of 36 columns by splitting the values
+    #  in the categories column on the ";" character. 
     categories = df.categories.str.split(";", expand=True)
-    # get the first row from categories dataframe to create column names for the categories data.
+    # Get the first row from categories dataframe.
     first_row = categories.loc[0]
-    # extract a list of new column names for categories by getting the first (n-2) characters from a string
+    # Extract a list of new column names for categories by getting
+    #  the first (n-2) characters from a string
     category_colnames = first_row.apply(lambda i: i[:-2])
-    # rename the categories column name
+    # Rename the categories column name
     categories.columns = category_colnames
 
-    #Iterate through the category columns to keep only the last character of each string (the 1 or 0). 
+    # Iterate through the category columns to keep only 
+    # the last character of each string (the 1 or 0). 
     for category in categories:
-        # set each value to be the last character of the string
+        # Set each value to be the last character of the string
         categories[category] =  categories[category].str[-1]
-        # convert the data for each column  from string to numeric
+        # Convert the data for each column  from string to numeric
         categories[category] = pd.to_numeric(categories[category])
-    # drop the original categories column from the df
+    # Drop the original categories column from the df
     df = df.drop(columns = 'categories') 
-    # merge the original dataframe with the new categories dataframe
+    # Merge the original dataframe with the new categories dataframe
     df = df.join(categories)
-    # drop duplicates
+    # Drop duplicates
     df = df.drop_duplicates()
     
     return df
-     
+
+
 def save_data(df, database_filename):
     """
-    The function to save cleaned data into sql database .
+    The function to save cleaned data into sql database.
+
     Parameters:
     df: cleaned datafram.
     database_filename: name of database
+
     Output: sql database
     """
-    # save a dataframe to sqlite database
-    print('Save the {} datafram to {} database: '.format(df, database_filename))
+    # Save a dataframe to sqlite database
     engine = create_engine('sqlite:///{}'.format(database_filename))
     df.to_sql('DisasterResponse', engine,if_exists = 'replace', index=False)
+
 
 def main():
 
