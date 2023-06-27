@@ -30,7 +30,6 @@ def load_data(database_filepath):
     engine = create_engine('sqlite:///'+database_filepath)
     # Read sql tables into datafram
     df = pd.read_sql_table('DisasterResponse', engine)
-
     # Get the message data
     message = df['message']
     # Get the categories name
@@ -73,7 +72,7 @@ def tokenize(text):
 
 def build_model():
     """
-    The function to create a pipeline for model to classify disaster messages.
+    The function to create a pipeline for model to classify a disaster messages.
     """
     # Create a pipline of CountVectorizer, TfidfTransformer and MultiOutputClassifier
     pipeline = Pipeline([
