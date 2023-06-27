@@ -41,9 +41,9 @@ def clean_data(df):
 
     # Extract a list of new column names for categories by getting
     #  the first (n-2) characters from a string
-    category_colnames = first_row.apply(lambda i: i[:-2])
+    category_col_names = first_row.apply(lambda i: i[:-2])
     # Rename the categories column name
-    categories.columns = category_colnames
+    categories.columns = category_col_names
 
     # Iterate through the category columns to keep only 
     # the last character of each string (the 1 or 0). 
@@ -52,10 +52,10 @@ def clean_data(df):
         categories[category] =  categories[category].str[-1]
         # Convert the data for each column  from string to numeric
         categories[category] = pd.to_numeric(categories[category])
-        
-    # Drop the original categories column from the df
-    df = df.drop(columns = 'categories') 
-    # Merge the original dataframe with the new categories dataframe
+
+    # Drop the categories column from the df
+    df = df.drop(columns='categories') 
+    # merge the new categories to the df dataframe
     df = df.join(categories)
     # Drop duplicates
     df = df.drop_duplicates()
