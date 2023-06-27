@@ -55,7 +55,7 @@ pip install -r requirements.txt
                         |-- master.html
                 |-- run.py
           |-- data
-                |-- disaster_message.csv
+                |-- disaster_messages.csv
                 |-- disaster_categories.csv
                 |-- DisasterResponse.db
                 |-- process_data.py
