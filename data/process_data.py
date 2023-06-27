@@ -45,7 +45,7 @@ def clean_data(df):
     # Rename the categories column name
     categories.columns = category_col_names
 
-    # Iterate through the category columns to keep only 
+    # Loop over the category columns to keep only 
     # the last character of each string (the 1 or 0). 
     for category in categories:
         # Set each value to be the last character of the string
