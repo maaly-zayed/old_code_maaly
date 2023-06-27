@@ -49,7 +49,6 @@ def clean_data(df):
     # the last character of each string (the 1 or 0). 
     for category in categories:
         # Set each value to be the last character of the string
-        # print(categories[category].str[-1])
         categories[category] =  categories[category].str[-1]
         # Convert the data for each column  from string to numeric
         categories[category] = pd.to_numeric(categories[category])
