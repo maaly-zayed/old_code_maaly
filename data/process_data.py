@@ -9,8 +9,8 @@ def load_data(messages_filepath, categories_filepath):
     """
     The function to load data .
     Parameters:
-    messages_path: the file path to the messages CSV dataset.
-    categories_path: the file path to the categories CSV dataset.
+        messages_path: the file path to the messages CSV dataset.
+        categories_path: the file path to the categories CSV dataset.
     """
     # Load messages and categories csv files
     messages = pd.read_csv(messages_filepath)
@@ -26,11 +26,11 @@ def clean_data(df):
     Function to clean data included in the DataFrame and transform categories part
 
     Parameters:
-    model: trained model.
-    df (DataFrame): Merged DataFrame
+        model: trained model.
+        df (DataFrame): merged DataFrame
 
-    OUTPUT
-    df (DataFrame): Cleaned DataFrame
+    Output:
+        df (DataFrame): cleaned DataFrame
     """
 
     # Create a datafrm of 36 columns by splitting the values
@@ -66,8 +66,8 @@ def save_data(df, database_filename):
     The function to save cleaned data into sql database.
 
     Parameters:
-    df: cleaned datafram.
-    database_filename: name of database
+        df: cleaned datafram.
+        database_filename: name of database
 
     Output: sql database
     """

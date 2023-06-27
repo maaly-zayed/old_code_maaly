@@ -24,7 +24,7 @@ def load_data(database_filepath):
     The function to load the created database.
 
     Parameters:
-    database_filepath: the file path to the database_filepath.
+        database_filepath: the file path to the database_filepath.
     """
     # Create a connection to the sql database
     engine = create_engine('sqlite:///'+database_filepath)
@@ -45,7 +45,7 @@ def tokenize(text):
     The function to tokenize the text messages.
 
     Parameters:
-    text: text messages.
+        text: text messages.
     """
     # Preprocessing using regex to detect url in the message
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
@@ -71,8 +71,6 @@ def tokenize(text):
 def build_model():
     """
     The function to create a pipeline for this model.
-
-    Output: the function return the model
     """
     # Create a pipline of CountVectorizer, TfidfTransformer and MultiOutputClassifier
     pipeline = Pipeline([
@@ -100,12 +98,12 @@ def evaluate_model(model, X_test, y_test, category_names):
     The function to evaluate the model performance.
 
     Parameters:
-    model: trained model.
-    X_test: test text message
-    y_test: the correct target
-    category_names: the target names
+        model: trained model.
+        X_test: test text message
+        y_test: the correct target
+        category_names: the target names
 
-    output: priniting the classification report
+    Output: priniting the classification report
     """
     # Get the prediction of test data
     y_pred = model.predict(X_test)
@@ -119,9 +117,10 @@ def save_model(model, model_filepath):
     The function to save model.
 
     Parameters:
-    model: trained model.
-    model_filepath: the model path
-    output: pikle version of the model
+        model: trained model.
+        model_filepath: the model path
+
+    Output: pikle version of the model
     """
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
