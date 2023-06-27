@@ -13,10 +13,8 @@
 
 ## Project Descriptions
 
-This project catalogs messages that are sent during disasters. The data contains 36 predefined categories of messages. The importance of categorizing these messages is in disaster situations where the messages are forwarded to the appropriate relief agency.
-In this project we will build a pipeline for ETL and Machine Learning.
-This project also has a web application where a message is entered and its classification is obtained.
-
+In this project we will build a pipeline for ETL and Machine Learning to classify disasters messages. This project also has a web application where a message is entered and its classification is obtained.
+The classification of disasters messages aims to send the message to the concerned relief agency in disaster situations.
 ## Setting up the environment
 
 It is very important to create separate environment to avoid dependecies conflict with other projects.
