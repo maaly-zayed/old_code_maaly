@@ -77,7 +77,7 @@ python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
 ```bash
 python run.py
 ```
-4. then Go to
+4. To display the web page Go to
 ```bash
  http://127.0.0.1:3001/
 ```
