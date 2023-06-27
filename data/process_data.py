@@ -49,14 +49,20 @@ def clean_data(df):
     # the last character of each string (the 1 or 0). 
     for category in categories:
         # Set each value to be the last character of the string
+        # print(categories[category].str[-1])
         categories[category] =  categories[category].str[-1]
+        # if(categories[category]=='2'):
+        #     print("i find the 22222222222222222222222222222222222222")
+
         # Convert the data for each column  from string to numeric
         categories[category] = pd.to_numeric(categories[category])
-
+    
     # Drop the categories column from the df
     df = df.drop(columns='categories') 
     # merge the new categories to the df dataframe
     df = df.join(categories)
+    # Replace 2 values in related column to 1
+    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
     # Drop duplicates
     df = df.drop_duplicates()
     
