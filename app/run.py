@@ -36,7 +36,6 @@ def tokenize(text):
 # load data
 engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('DisasterResponse', con=engine)
-
 # load model
 model = joblib.load("../models/classifier.pkl")
 
@@ -51,18 +50,25 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
+    security_counts = df.groupby('security').count()['message']
+    security_names = list(security_counts.index)
     # Count number of Categories
-    category_count = df.iloc[:,4:].sum()
+    category_count = df.iloc[:,4:].sum().sort_values(ascending=False)
     category_names = list(category_count.index)
     
     category = df.iloc[:,4:]
-    #finding the mean of top 5 categories
-    category_mean = category.mean().sort_values(ascending=False)[1:6]
-    category_name = list(category_mean.index)
+    # Finding the mean of top 5 categories
+    top_category_mean = category.mean().sort_values(ascending=False)[1:6]
+    top_category_name = list(top_category_mean.index)
+
+    # Finding the least 5 categories
+    least_category_mean = category.mean().sort_values(ascending=True)[1:6]
+    least_category_name = list(least_category_mean.index)
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
+         # Fig1 Distribution of Message genre
         {
             'data': [
                 Bar(
@@ -72,12 +78,12 @@ def index():
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Distribution of Message genre',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "genre"
                 },
                 'width': 1000,
                 'height': 700,
@@ -87,7 +93,33 @@ def index():
                 )
             }
         },
-        # fig2 Distribution of Message category
+
+         # Fig2 Distribution of Message security
+        {
+            'data': [
+                Bar(
+                    x=security_names,
+                    y=security_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message security',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "security"
+                },
+                'width': 1000,
+                'height': 700,
+                'margin': dict(
+                    pad=10,
+                    b=150,
+                )
+            }
+        },
+        # Fig3 Distribution of categories
                 {
             'data': [
                 Bar(
@@ -97,7 +129,7 @@ def index():
             ],
 
             'layout': {
-                'title': 'Distribution of Message category',
+                'title': 'Distribution of Message Categories',
                 'yaxis': {
                     'title': "Count"
                 },
@@ -112,12 +144,12 @@ def index():
                 )
             }
         },
-        #fig3 Distribution of Top 5 Message Categories
+                # Fig4 Distribution of Top 5 Message Categories
                {
             'data': [
                 Bar(
-                     x=category_name,
-                     y=category_mean
+                     x=top_category_name,
+                     y=top_category_mean
 
                 )
 
@@ -127,7 +159,35 @@ def index():
 
                 'title': 'Distribution of Top 5 Message Categories',
                  'yaxis': {
-                'title': "Percentage"
+                'title': "Average count"
+                },
+                 'xaxis': {
+                'title': "Categories"
+                },
+                'width': 1000,
+                'height': 700,
+                'margin': dict(
+                    pad=10,
+                    b=150,
+                    )
+                }
+            }, 
+            # Fig5 Distribution of least 5 Message Categories
+               {
+            'data': [
+                Bar(
+                     x=least_category_name,
+                     y=least_category_mean
+
+                )
+
+            ],
+
+            'layout': {
+
+                'title': 'Distribution of least 5 Message Categories',
+                 'yaxis': {
+                'title': "Average count"
                 },
                  'xaxis': {
                 'title': "Categories"
