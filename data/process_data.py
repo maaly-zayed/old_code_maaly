@@ -51,9 +51,6 @@ def clean_data(df):
         # Set each value to be the last character of the string
         # print(categories[category].str[-1])
         categories[category] =  categories[category].str[-1]
-        # if(categories[category]=='2'):
-        #     print("i find the 22222222222222222222222222222222222222")
-
         # Convert the data for each column  from string to numeric
         categories[category] = pd.to_numeric(categories[category])
     
