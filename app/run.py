@@ -5,6 +5,7 @@ import pandas as pd
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
+import re
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
@@ -12,16 +13,22 @@ from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
 
-
 app = Flask(__name__)
 
 def tokenize(text):
+    url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    detected_urls = re.findall(url_regex, text)
+    # Replace all url with "url"
+    for url in detected_urls:
+        text = text.replace(url, "url")
+    # remove special characters from the text and and convert char to lowercase char
+    text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
     clean_tokens = []
     for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tok = lemmatizer.lemmatize(tok).strip()
         clean_tokens.append(clean_tok)
 
     return clean_tokens
