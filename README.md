@@ -57,7 +57,6 @@ python run.py
 ```
 ## Files Descriptions
 
-
         disaster_response_pipeline
           |-- app
                 |-- templates
