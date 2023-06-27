@@ -59,7 +59,7 @@ def clean_data(df):
     df = df.join(categories)
     # Replace 2 values in related column to 1
     df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
-    # Drop duplicates
+    # Drop the duplicates
     df = df.drop_duplicates()
     
     return df
