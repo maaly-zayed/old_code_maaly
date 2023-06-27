@@ -29,14 +29,16 @@ def clean_data(df):
         (DataFrame) df: Cleaned DataFrame
     """
 
-    # get the 36 categories
+    # craete a datafrm of 36 columns by Splitting the values in the categories column on the ";" character. 
     categories = df.categories.str.split(";", expand=True)
-    # get the first row from categories dataframe 
+    # get the first row from categories dataframe to create column names for the categories data.
     first_row = categories.loc[0]
     # extract a list of new column names for categories by getting the first (n-2) characters from a string
     category_colnames = first_row.apply(lambda i: i[:-2])
-    # rename the categories
+    # rename the categories column name
     categories.columns = category_colnames
+
+    #Iterate through the category columns to keep only the last character of each string (the 1 or 0). 
     for category in categories:
         # set each value to be the last character of the string
         categories[category] =  categories[category].str[-1]
@@ -44,7 +46,7 @@ def clean_data(df):
         categories[category] = pd.to_numeric(categories[category])
     # drop the original categories column from the df
     df = df.drop(columns = 'categories') 
-    # concatenate the original dataframe with the new categories dataframe
+    # merge the original dataframe with the new categories dataframe
     df = df.join(categories)
     # drop duplicates
     df = df.drop_duplicates()
