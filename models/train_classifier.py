@@ -46,23 +46,26 @@ def tokenize(text):
 
     Parameters:
         text: text messages.
+    Output:
+        lemm_lower_tokens: a list of the root for each word
     """
     # Preprocessing using regex to detect url in the message
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     # Find all url in the message text
     detected_urls = re.findall(url_regex, text)
-    # Replace all url with "urlplaceholder"
+    # Replace all url with "url"
     for url in detected_urls:
-        text = text.replace(url, "urlplaceholder")
-
-     # Convert text messages into tokens
+        text = text.replace(url, "url")
+    # remove special characters from the text and and convert char to lowercase char
+    text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
+    # Convert text messages into tokens
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
     # Preprocessing
     lemm_lower_tokens = []
     for token in tokens:
         # Lemmatize each token 
-        process_token = lemmatizer.lemmatize(token).lower().strip()
+        process_token = lemmatizer.lemmatize(token).strip()
         lemm_lower_tokens.append(process_token)
 
     return lemm_lower_tokens    
@@ -70,7 +73,7 @@ def tokenize(text):
 
 def build_model():
     """
-    The function to create a pipeline for this model.
+    The function to create a pipeline for model to classify disaster messages.
     """
     # Create a pipline of CountVectorizer, TfidfTransformer and MultiOutputClassifier
     pipeline = Pipeline([
@@ -93,7 +96,7 @@ def build_model():
     return model
 
 
-def evaluate_model(model, X_test, y_test, category_names):
+def evaluate_model(model, X_test, Y_test, category_names):
     """
     The function to evaluate the model performance.
 
@@ -109,7 +112,7 @@ def evaluate_model(model, X_test, y_test, category_names):
     y_pred = model.predict(X_test)
     for indx, category in enumerate(category_names):
         print('The classification_report for: {}'.format(category))
-        print(classification_report(list(y_test.values[:, indx]), list(y_pred[:, indx])))
+        print(classification_report(list(Y_test.values[:, indx]), list(y_pred[:, indx])))
 
 
 def save_model(model, model_filepath):
