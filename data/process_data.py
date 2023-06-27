@@ -38,6 +38,7 @@ def clean_data(df):
     categories = df.categories.str.split(";", expand=True)
     # Get the first row from categories dataframe.
     first_row = categories.loc[0]
+
     # Extract a list of new column names for categories by getting
     #  the first (n-2) characters from a string
     category_colnames = first_row.apply(lambda i: i[:-2])
@@ -51,6 +52,7 @@ def clean_data(df):
         categories[category] =  categories[category].str[-1]
         # Convert the data for each column  from string to numeric
         categories[category] = pd.to_numeric(categories[category])
+        
     # Drop the original categories column from the df
     df = df.drop(columns = 'categories') 
     # Merge the original dataframe with the new categories dataframe
